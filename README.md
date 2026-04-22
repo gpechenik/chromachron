@@ -1,6 +1,6 @@
 # Chromachron
 
-Color-as-time for `*.log.md` files. Noon glows yellow, midnight deepens to blue; midsummer and midwinter bookend the year. Inspired by [Tian Harlan's 1986 Chromachron wristwatch](https://en.wikipedia.org/wiki/Chromachron), which told the time through colored sectors on a rotating dial.
+Color-as-time for `*.chron` log files. Noon glows yellow, midnight deepens to blue; midsummer and midwinter bookend the year. Inspired by [Tian Harlan's 1986 Chromachron wristwatch](https://www.hodinkee.com/articles/chromachron-a-radically-new-approach-to-time), which told the time through colored sectors on a rotating dial.
 
 - **Time of day → color curve.** Midnight anchors to deep blue, noon to bright yellow. Hue, saturation, and lightness smoothly interpolate via a tent function — so 3 AM and 9 PM feel equally "night," 9 AM and 3 PM equally "day."
 - **Date → seasonal color.** Same anchors, mapped to the year. Midsummer solstice glows yellow; midwinter solstice is dark blue. (Day-of-week presets still available.)
@@ -9,8 +9,8 @@ Color-as-time for `*.log.md` files. Noon glows yellow, midnight deepens to blue;
 - **Hashtags and inline `code`** are dimmed to a subtle gray so they don't compete with the timeline.
 - **Markdown links** get a configurable color.
 - **Clickable color squares** next to each date and time (the picker is read-only — won't accidentally edit your file).
-- **Fast.** Only scans the visible portion of the document. Debounced on edits. Extension doesn't even load unless a `*.log.md` file opens.
-- **Files stay regular Markdown.** Obsidian, GitHub, and every other Markdown renderer see normal Markdown. The coloring is a VS Code overlay.
+- **Fast.** Only scans the visible portion of the document. Debounced on edits. Extension doesn't even load unless a `*.chron` or `*.log.md` file opens.
+- **`.log.md` stays regular Markdown.** Every Markdown renderer (GitHub, Obsidian, pandoc, Marked, etc.) sees plain Markdown. The coloring is a VS Code overlay only.
 
 ## How file matching works
 
@@ -30,7 +30,7 @@ All settings live under `chromachron.*`. Each feature has `enabled`, color(s), a
 
 | Setting | Default | Description |
 | --- | --- | --- |
-| `chromachron.scope.enabledGlobs` | `["**/*.log.md"]` | Only decorate files matching these globs. |
+| `chromachron.scope.enabledGlobs` | `["**/*.chron", "**/*.log.md"]` | Only decorate files matching these globs. |
 
 ### Time (HH:mm)
 
@@ -50,10 +50,12 @@ The color curve interpolates hue, saturation, and lightness together — so midn
 | --- | --- | --- |
 | `chromachron.date.enabled` | `true` | Colorize `YYYY-MM-DD` dates. |
 | `chromachron.date.showColorSquare` | `true` | Show a clickable square next to each date. |
-| `chromachron.date.preset` | `"seasonal"` | `seasonal` tracks the year solstice-to-solstice. Others (`rainbow`, `pastel`, `muted`, `warmCool`, `custom`) color by day-of-week. |
+| `chromachron.date.preset` | `"seasonal"` | `seasonal` tracks the year solstice-to-solstice. `workweek` splits Mon-Fri vs Sat-Sun. Others (`rainbow`, `pastel`, `muted`, `warmCool`, `custom`) color by day-of-week. |
 | `chromachron.date.winterColor` | `#2e3b73` | Winter-solstice color (used by `seasonal`). |
 | `chromachron.date.summerColor` | `#f5c842` | Summer-solstice color (used by `seasonal`). |
 | `chromachron.date.hemisphere` | `"north"` | Flip the seasonal curve for the southern hemisphere. |
+| `chromachron.date.workdayColor` | `#6b7280` | Mon-Fri color (used by `workweek`). |
+| `chromachron.date.weekendColor` | `#f5c842` | Sat-Sun color (used by `workweek`). |
 | `chromachron.date.colors` | `{}` | Custom 7-day colors when `preset = "custom"`. |
 | `chromachron.date.bold` | `false` | Render dates in bold. |
 
@@ -62,8 +64,10 @@ The color curve interpolates hue, saturation, and lightness together — so midn
 | Setting | Default | Description |
 | --- | --- | --- |
 | `chromachron.weekday.enabled` | `true` | Colorize weekday names. |
-| `chromachron.weekday.preset` | `"rainbow"` | `rainbow`, `pastel`, `muted`, `warmCool`, or `custom`. |
+| `chromachron.weekday.preset` | `"rainbow"` | `rainbow`, `workweek`, `pastel`, `muted`, `warmCool`, or `custom`. |
 | `chromachron.weekday.colors` | `{}` | Custom 7-day colors when `preset = "custom"`. |
+| `chromachron.weekday.workdayColor` | `#6b7280` | Mon-Fri color (used by `workweek`). |
+| `chromachron.weekday.weekendColor` | `#f5c842` | Sat-Sun color (used by `workweek`). |
 | `chromachron.weekday.bold` | `false` | |
 
 ### Timezone
@@ -186,14 +190,14 @@ Captured here so they don't get lost. Nothing in this list is implemented yet.
 
 - **Status bar summary** for selected time ranges (total hours).
 - **Heatmap minimap** — minimap shows time colors, making the day's rhythm visible at a glance.
-- **Per-file overrides** via YAML frontmatter (e.g. `chromachron: { time: { hueOffset: 120 } }`).
+- **Per-file overrides** via YAML frontmatter (e.g. `chromachron: { time: { noonColor: "#ffbb00" } }`).
 - **Inline per-line anchor comments** (e.g. `<!-- chromachron:today -->`).
 
 ### Marketplace readiness
 
 - **Icon + marketplace screenshots.**
 - **`vsce publish`** once the publisher account is set up.
-- **Snapshot tests** — a `.log.md` fixture with known matches.
+- **Snapshot tests** — a `.chron` fixture with known matches.
 - **Settings UI webview** — a visual editor for the 7 weekday colors and the 2 anchor colors.
 - **Theme compatibility notes** — the default lightness curve works well on dark themes; light themes may need tuning.
 
@@ -206,7 +210,7 @@ Captured here so they don't get lost. Nothing in this list is implemented yet.
 
 ## Credit
 
-Inspired by Tian Harlan's [Chromachron wristwatch](https://en.wikipedia.org/wiki/Chromachron) (1986), which mapped each hour to a color on a rotating dial.
+Inspired by Tian Harlan's [Chromachron wristwatch](https://www.hodinkee.com/articles/chromachron-a-radically-new-approach-to-time) (1986), which mapped each hour to a color on a rotating dial.
 
 ## License
 
