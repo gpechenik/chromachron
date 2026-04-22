@@ -1,0 +1,234 @@
+{
+  "name": "chromachron",
+  "displayName": "Chromachron",
+  "description": "Color-as-time for *.log.md files. Noon glows yellow, midnight deepens to blue; midsummer and midwinter bookend the year. Inspired by Tian Harlan's 1986 Chromachron wristwatch.",
+  "version": "0.0.3",
+  "publisher": "gmp",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Visualization", "Other"],
+  "keywords": ["log", "markdown", "time", "color", "chromachron", "log.md", "timeline"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gpechenik/chromachron.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gpechenik/chromachron/issues"
+  },
+  "homepage": "https://github.com/gpechenik/chromachron#readme",
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "chron",
+        "aliases": ["Chromachron", "Chromachron Log", "chron"],
+        "filenamePatterns": ["*.chron", "*.log.md"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/chromachron.svg",
+          "dark": "./icons/chromachron.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "chron",
+        "scopeName": "source.chron",
+        "path": "./syntaxes/chron.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.markdown": "markdown"
+        }
+      }
+    ],
+    "configuration": {
+      "title": "Chromachron",
+      "properties": {
+        "chromachron.scope.enabledGlobs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["**/*.chron", "**/*.log.md"],
+          "description": "Only decorate files matching these globs. Empty = all chron files."
+        },
+        "chromachron.time.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color HH:mm times by time of day."
+        },
+        "chromachron.time.showColorSquare": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a clickable color square next to each time."
+        },
+        "chromachron.time.midnightColor": {
+          "type": "string",
+          "default": "#2e3b73",
+          "description": "Color for 00:00 (and the time-of-day curve anchors here)."
+        },
+        "chromachron.time.noonColor": {
+          "type": "string",
+          "default": "#f5c842",
+          "description": "Color for 12:00 (the brightest point of the day)."
+        },
+        "chromachron.time.bold": {
+          "type": "boolean",
+          "default": false,
+          "description": "Render times in bold."
+        },
+        "chromachron.date.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color YYYY-MM-DD dates."
+        },
+        "chromachron.date.showColorSquare": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show a clickable color square next to each date."
+        },
+        "chromachron.date.preset": {
+          "type": "string",
+          "enum": ["seasonal", "workweek", "rainbow", "pastel", "muted", "warmCool", "custom"],
+          "default": "seasonal",
+          "description": "'seasonal' tracks the year solstice-to-solstice. 'workweek' splits Mon-Fri vs Sat-Sun. Others color by day-of-week."
+        },
+        "chromachron.date.winterColor": {
+          "type": "string",
+          "default": "#2e3b73",
+          "description": "Color at the winter solstice. Used by 'seasonal' preset."
+        },
+        "chromachron.date.summerColor": {
+          "type": "string",
+          "default": "#f5c842",
+          "description": "Color at the summer solstice. Used by 'seasonal' preset."
+        },
+        "chromachron.date.hemisphere": {
+          "type": "string",
+          "enum": ["north", "south"],
+          "default": "north",
+          "description": "Flip the seasonal curve for the southern hemisphere."
+        },
+        "chromachron.date.workdayColor": {
+          "type": "string",
+          "default": "#6b7280",
+          "description": "Mon-Fri color. Used by 'workweek' preset."
+        },
+        "chromachron.date.weekendColor": {
+          "type": "string",
+          "default": "#f5c842",
+          "description": "Sat-Sun color. Used by 'workweek' preset."
+        },
+        "chromachron.date.colors": {
+          "type": "object",
+          "default": {},
+          "description": "Custom day-of-week colors (hex) when preset = 'custom'. Keys: monday, tuesday, …, sunday."
+        },
+        "chromachron.date.bold": {
+          "type": "boolean",
+          "default": false,
+          "description": "Render dates in bold."
+        },
+        "chromachron.weekday.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color weekday names (Mon, Monday, Tue, …)."
+        },
+        "chromachron.weekday.preset": {
+          "type": "string",
+          "enum": ["rainbow", "workweek", "pastel", "muted", "warmCool", "custom"],
+          "default": "rainbow",
+          "description": "Day-of-week coloring. 'workweek' splits Mon-Fri vs Sat-Sun. Others give each day its own color."
+        },
+        "chromachron.weekday.colors": {
+          "type": "object",
+          "default": {},
+          "description": "Custom weekday colors when preset = 'custom'."
+        },
+        "chromachron.weekday.workdayColor": {
+          "type": "string",
+          "default": "#6b7280",
+          "description": "Mon-Fri color. Used by 'workweek' preset."
+        },
+        "chromachron.weekday.weekendColor": {
+          "type": "string",
+          "default": "#f5c842",
+          "description": "Sat-Sun color. Used by 'workweek' preset."
+        },
+        "chromachron.weekday.bold": {
+          "type": "boolean",
+          "default": false
+        },
+        "chromachron.timezone.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color timezone abbreviations (UTC, PST, …) and offsets (+05:00)."
+        },
+        "chromachron.timezone.color": {
+          "type": "string",
+          "default": "#a58fc9"
+        },
+        "chromachron.timezone.bold": {
+          "type": "boolean",
+          "default": false
+        },
+        "chromachron.hashtag.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Dim #hashtags."
+        },
+        "chromachron.hashtag.color": {
+          "type": "string",
+          "default": "#6b7280"
+        },
+        "chromachron.hashtag.bold": {
+          "type": "boolean",
+          "default": false
+        },
+        "chromachron.code.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Dim inline `code` spans."
+        },
+        "chromachron.code.color": {
+          "type": "string",
+          "default": "#6b7280"
+        },
+        "chromachron.code.bold": {
+          "type": "boolean",
+          "default": false
+        },
+        "chromachron.links.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Color markdown links and bare URLs."
+        },
+        "chromachron.links.color": {
+          "type": "string",
+          "default": "#61afef"
+        },
+        "chromachron.perf.visibleRangeOnly": {
+          "type": "boolean",
+          "default": true,
+          "description": "Only scan the visible portion of the document."
+        },
+        "chromachron.perf.debounceMs": {
+          "type": "number",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 2000
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npx -y @vscode/vsce package --out chromachron.vsix",
+    "reinstall": "npm run compile && npm run package && code --install-extension ./chromachron.vsix --force"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.4.0"
+  }
+}
