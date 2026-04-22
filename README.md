@@ -1,6 +1,6 @@
 # Chromachron
 
-Color-as-time for `*.chron` log files. Noon glows yellow, midnight deepens to blue; midsummer and midwinter bookend the year. Inspired by [Tian Harlan's 1986 Chromachron wristwatch](https://www.hodinkee.com/articles/chromachron-a-radically-new-approach-to-time), which told the time through colored sectors on a rotating dial.
+Color-as-time for `*.chron` log files. Noon glows yellow, midnight deepens to blue; midsummer and midwinter bookend the year. Also works on `*.chron.md` (Markdown-flavored, for Obsidian-style vaults) and `*.log.md` out of the box. Inspired by Tian Harlan's 1971 Chromachron wristwatch, which told the time through colored sectors on a rotating dial (see [Chromachron, A Radically New Approach To Time](https://www.hodinkee.com/articles/chromachron-a-radically-new-approach-to-time)).
 
 - **Time of day → color curve.** Midnight anchors to deep blue, noon to bright yellow. Hue, saturation, and lightness smoothly interpolate via a tent function — so 3 AM and 9 PM feel equally "night," 9 AM and 3 PM equally "day."
 - **Date → seasonal color.** Same anchors, mapped to the year. Midsummer solstice glows yellow; midwinter solstice is dark blue. (Day-of-week presets still available.)
@@ -14,7 +14,7 @@ Color-as-time for `*.chron` log files. Noon glows yellow, midnight deepens to bl
 
 ## How file matching works
 
-Chromachron registers a language called `chron` with two default file patterns: `*.chron` (the canonical extension) and `*.log.md` (Obsidian-friendly markdown). Regular `.md` files are untouched. Add any other extension via VS Code's `files.associations`:
+Chromachron registers a language called `chron` with three default file patterns: `*.chron` (the canonical extension), `*.chron.md` (Markdown-flavored — opens as regular Markdown in Obsidian, GitHub, pandoc, etc.), and `*.log.md` (legacy). Regular `.md` files are untouched. Add any other extension via VS Code's `files.associations`:
 
 ```jsonc
 "files.associations": { "*.log": "chron", "*.timeline": "chron" }
@@ -30,7 +30,7 @@ All settings live under `chromachron.*`. Each feature has `enabled`, color(s), a
 
 | Setting | Default | Description |
 | --- | --- | --- |
-| `chromachron.scope.enabledGlobs` | `["**/*.chron", "**/*.log.md"]` | Only decorate files matching these globs. |
+| `chromachron.scope.enabledGlobs` | `["**/*.chron", "**/*.chron.md", "**/*.log.md"]` | Only decorate files matching these globs. |
 
 ### Time (HH:mm)
 
@@ -210,7 +210,7 @@ Captured here so they don't get lost. Nothing in this list is implemented yet.
 
 ## Credit
 
-Inspired by Tian Harlan's [Chromachron wristwatch](https://www.hodinkee.com/articles/chromachron-a-radically-new-approach-to-time) (1986), which mapped each hour to a color on a rotating dial.
+Inspired by Tian Harlan's [Chromachron wristwatch](https://www.hodinkee.com/articles/chromachron-a-radically-new-approach-to-time) (1971), which mapped each hour to a color on a rotating dial.
 
 ## License
 

@@ -160,7 +160,7 @@ function readConfig(): Config {
     bold: c.get<boolean>(`${name}.bold`, false),
   });
   return {
-    scopeGlobs: c.get<string[]>('scope.enabledGlobs', ['**/*.chron', '**/*.log.md']),
+    scopeGlobs: c.get<string[]>('scope.enabledGlobs', ['**/*.chron', '**/*.chron.md', '**/*.log.md']),
     time: {
       enabled: c.get<boolean>('time.enabled', true),
       showSquare: c.get<boolean>('time.showColorSquare', true),
