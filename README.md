@@ -16,14 +16,14 @@ Color-as-time for `*.chron` log files. Noon glows yellow, midnight deepens to bl
 
 Chromachron registers a language called `chron` with three default file patterns: `*.chron` (the canonical extension), `*.chron.md` (Markdown-flavored — opens as regular Markdown in Obsidian, GitHub, pandoc, etc.), and `*.log.md` (legacy). Regular `.md` files are untouched.
 
-> **Note on compound extensions.** VS Code's built-in Markdown claims `.md` with high priority, so `*.chron.md` and `*.log.md` don't always win the language tiebreak on their own. If your file shows the Chromachron icon but no colors, add this to your user `settings.json`:
->
-> ```jsonc
-> "files.associations": {
->   "*.chron.md": "chron",
->   "*.log.md": "chron"
-> }
-> ```
+If another extension in your setup claims `.md` and wins the language tiebreak, you can force the association explicitly:
+
+```jsonc
+"files.associations": {
+  "*.chron.md": "chron",
+  "*.log.md": "chron"
+}
+```
 
 Add any other extension the same way:
 

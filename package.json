@@ -2,7 +2,7 @@
   "name": "chromachron",
   "displayName": "Chromachron",
   "description": "Color-as-time for log files. Noon glows yellow, midnight deepens to blue; midsummer and midwinter bookend the year. Works on *.chron and *.log.md out of the box. Inspired by Tian Harlan's 1971 Chromachron wristwatch.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "gpechenik",
   "engines": {
     "vscode": "^1.80.0"
@@ -48,8 +48,8 @@
         "chromachron.scope.enabledGlobs": {
           "type": "array",
           "items": { "type": "string" },
-          "default": ["**/*.chron", "**/*.chron.md", "**/*.log.md"],
-          "description": "Only decorate files matching these globs. Empty = all chron files."
+          "default": [],
+          "description": "Extra narrowing glob(s). Empty (default) = decorate every file assigned to the chron language. Set e.g. [\"**/sepal/**\"] to scope to a subdirectory."
         },
         "chromachron.time.enabled": {
           "type": "boolean",
