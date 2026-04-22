@@ -224,7 +224,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "package": "npx -y @vscode/vsce package --out chromachron.vsix",
-    "reinstall": "npm run compile && npm run package && code --install-extension ./chromachron.vsix --force"
+    "reinstall": "npm run compile && npm run package && code --uninstall-extension gpechenik.chromachron; code --install-extension ./chromachron.vsix --force"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
