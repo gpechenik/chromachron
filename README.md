@@ -187,7 +187,7 @@ Captured here so they don't get lost. Nothing in this list is implemented yet.
 - **Workday vs weekend boolean coloring** as a minimal preset.
 - **Locale-aware week start** (Sun vs Mon as week 1).
 
-### Links
+### Link coloring
 
 - **Per-scheme colors** (`https://` vs `obsidian://` vs wiki `[[…]]` links).
 - **Visited-link color** tracked in workspace state.
